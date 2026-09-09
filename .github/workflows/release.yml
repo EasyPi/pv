@@ -93,7 +93,7 @@ jobs:
       run: |
         # Rename and set permissions for binaries
         mv ./artifacts/pv-linux-x86_64/pv ./artifacts/pv-linux-x86_64-binary
-        mv ./artifacts/pv-windows-x86_64.exe/pv.exe ./artifacts/pv-windows-x86_64.exe
+        mv ./artifacts/pv-windows-x86_64.exe/pv.exe ./artifacts/pv-windows-x86_64-binary.exe
         mv ./artifacts/pv-macos-x86_64/pv ./artifacts/pv-macos-x86_64-binary
         mv ./artifacts/pv-macos-arm64/pv ./artifacts/pv-macos-arm64-binary
         
@@ -110,10 +110,9 @@ jobs:
       with:
         files: |
           ./artifacts/pv-linux-x86_64-binary
-          ./artifacts/pv-windows-x86_64.exe
+          ./artifacts/pv-windows-x86_64-binary.exe
           ./artifacts/pv-macos-x86_64-binary
           ./artifacts/pv-macos-arm64-binary
-          ./artifacts/pv-flatpak-${{ github.sha }}/pv.flatpak
         name: Release ${{ github.ref_name }}
         body: |
           ## Installation
@@ -142,14 +141,6 @@ jobs:
           curl -L -o pv https://github.com/SeanTater/pv/releases/download/${{ github.ref_name }}/pv-macos-arm64-binary
           chmod +x pv
           sudo mv pv /usr/local/bin/
-          ```
-
-          ### Package Managers
-
-          #### Flatpak (Linux)
-          ```bash
-          curl -L -o pv.flatpak https://github.com/SeanTater/pv/releases/download/${{ github.ref_name }}/pv.flatpak
-          flatpak install pv.flatpak
           ```
 
           ### From crates.io
